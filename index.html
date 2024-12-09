@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="todofavicon.ico" type="image/x-icon">
     <title>To Do list</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,10 +70,31 @@
         <div id="popup-overlay"></div>
         <div id="popup">
             <span id="popup-close" class="close-icon">&times;</span> <!-- Icône de fermeture -->
-            <h2>Créer une nouvelle tâche</h2>
+            <h3>Créer une nouvelle tâche</h3>
             <textarea id="task-description" placeholder="Description de la tâche"></textarea>
             <button id="button-save" class="button">Confirmer</button>
         </div>
+
+        <!-- Popup pour modifier une tâche -->
+        <div id="edit-popup-overlay"></div>
+        <div id="edit-popup">
+            <span id="edit-popup-close" class="close-icon">&times;</span>
+            <h3>Modifier la tâche</h3>
+            <textarea id="edit-popup-task" placeholder="Description de la tâche"></textarea>
+            <button id="edit-popup-save" class="button">Confirmer</button>
+        </div>
+
+
+        <!-- Popup pour supprimer une tâche -->
+        <div id="delete-popup-overlay"></div>
+        <div id="delete-popup">
+            <span id="delete-popup-close" class="close-icon">&times;</span>
+            <h3>Supprimer la tâche</h3>
+            <p>Votre tâche sera définitivement supprimée. Êtes-vous sûr de vouloir continuer ?</p>
+            <button id="delete-popup-save" class="button">Confirmer</button>
+        </div>
+
+
     </main>
     <script src="script.js"></script>
 </body>
