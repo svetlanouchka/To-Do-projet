@@ -28,8 +28,9 @@ function renderTasks() {
         taskDiv.classList.add('task');
         taskDiv.innerHTML = `
             <span>${task.text}</span>
+            <button class="button-modif" onclick="editTask(${task.id})">✏️</button>
             <button class="btn" onclick="deleteTask(${task.id})">🗑️</button>
-            <button class="btn" onclick="editTask(${task.id})">✏️</button>
+            
         `;
         taskList.appendChild(taskDiv);
     });
