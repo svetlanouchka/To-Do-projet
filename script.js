@@ -35,6 +35,22 @@ function renderTasks() {
     });
 }
 
+function deleteTask(taskId) {
+    tasks = tasks.filter(task => task.id !== taskId);
+    saveTasks();
+    renderTasks();
+}
+
+function editTask(taskId) {
+    const taskIndex = tasks.findIndex(task => task.id === taskId);
+    const task = tasks[taskIndex];
+    const newTaskText = prompt('Modifier la tâche:', task.text);
+    if (newTaskText !== null && newTaskText.trim() !== '') {
+        tasks[taskIndex].text = newTaskText.trim();
+        saveTasks();
+        renderTasks();
+    }
+}
 function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
