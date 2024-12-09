@@ -1,22 +1,31 @@
 :root {
+    /* Couleurs principales */
     --main-bg-color: #f7f7f7;
     --main-color: #E06E63;
-    --main-text-color: #202020;
+
+    /* Couleurs secondaires */
+    --secondary-bg-color: #6C8B7A;    
     --main-link-color: #007bff;
     --main-link-hover-color: #0056b3;
+
+    /* Couleurs de texte et bordures */
     --main-border-color: #ccc;
-    --main-border-radius: 5px;
-    --main-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --main-text-color: #202020;
+
+    /* Divers */
+    --main-border-radius: 20px;
+    --main-box-shadow: 0 2px 5px rgba(235, 235, 235, 0.486);
     --main-transition: 0.3s;
 
+    /* Typographie */
     --main-font-family: 'Urbanist', sans-serif;
+    --secondary-font-family: 'Afacad', sans-serif;
     --main-font-size: 1rem;
     --main-small-font-size: 0.8rem;
-
-    --secondary-bg-color: #6C8B7A;
-    --secondary-font-family: 'Afacad', sans-serif;
-
+    /* Titre */
     --titre-font-size: 3rem;
+
+    /* Espacement */
     --main-espace: 1rem;
     --main-padding: calc(var(--main-espace) * 2);
     --main-margin: calc(var(--main-espace) * 2);
@@ -32,6 +41,8 @@ header {
     padding: 0.5rem;
     height: 3.5rem;
     margin: 0;
+    display: flex;
+    justify-content: flex-start;
 }
 
 header>h1 {
@@ -53,8 +64,21 @@ h2 {
     font-size: var(--titre-font-size);
 }
 
+#task-description {
+    width: 70%;
+    height: 150px;
+    resize: none;
+}
+
 main {
     margin: var(--main-margin);
+    padding: var(--main-padding);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--main-bg-color);
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--main-box-shadow);
 }
 
 .task-list-filter {
@@ -62,19 +86,32 @@ main {
     font-weight: 200;
 }
 
-.task-list {
-    margin-top: var(--main-margin);
-    display: flex;
-    justify-content: flex-start;
-    width: 70%;
-    gap: var(--main-espace);
-
-
-}
-
 .task {
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: var(--main-espace) 0;
+    padding: var(--main-espace);
+    border: 1px solid var(--main-border-color);
+    border-radius: var(--main-border-radius);
+    background-color: white;
+    box-shadow: var(--main-box-shadow);
 }
+
+.task-list {
+    gap: var(--main-espace);
+    margin-top: var(--main-margin);
+    width: 70%;
+}
+
+.task-text {
+    flex: 1; 
+    word-wrap: break-word; 
+    margin-right: var(--main-espace); 
+    font-size: var(--main-font-size);
+    color: var(--main-text-color);
+}
+
 
 .task-creation {
     display: flex;
@@ -85,44 +122,109 @@ main {
 
 .button {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem;
+    padding: 0.7rem 1rem;
     border: none;
-    border-radius: 30px;
+    border-radius: var(--main-border-radius);
     background-color: var(--main-color);
     color: white;
     font-family: var(--main-font-family);
     font-size: var(--main-font-size);
     cursor: pointer;
-    transition: var(--main-transition);
-}
-
-.button-modif {
-    background-color: var(--secondary-bg-color);
-    padding: 0.5rem 1rem;
-    margin-left: 75%;
-    border: none;
-    border-radius: 30px;
-    color: white;
-    font-family: var(--main-font-family);
-    font-size: var(--main-small-font-size);
-    cursor: pointer;
-    transition: var(--main-transition);
-}
-
-input {
-    padding: 0.5rem;
-    border-radius: var(--main-border-radius);
-    border: 1px solid var(--main-border-color);
-    font-family: var(--main-font-family);
-    font-size: var(--main-font-size);
-    transition: var(--main-transition);
+    transition: background-color var(--main-transition);
 }
 
 .button:hover {
     background-color: #d9534f;
 }
 
-#textarea {
+.button-modif,
+.button-delete {
+    background-color: var(--secondary-bg-color);
+    padding: 0.5rem 1rem;
+    font-size: var(--main-small-font-size);
+    border-radius: var(--main-border-radius);
+}
+
+.button-modif:hover {
+    background-color: #5a6e5e;
+}
+
+.button-delete {
+    background-color: #FF4C4C;
+}
+
+.button-delete:hover {
+    background-color: #cc3c3c;
+}
+
+
+/* input {
+    padding: 0.5rem;
+    border-radius: var(--main-border-radius);
+    border: 1px solid var(--main-border-color);
+    font-family: var(--main-font-family);
+    font-size: var(--main-font-size);
+    transition: var(--main-transition);
+} */
+
+    /* Style de la fenêtre popup*/
+
+#popup {
+    position: relative;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: whitesmoke;
+    padding: 10px;
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.close-icon:hover {
+    color: red;
+    /* / Change la couleur au survol / */
+}
+
+#popup textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    /* / Espace entre le textarea et le bouton / */
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
     resize: none;
+}
+
+#popup button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-left: 0%;
+    background-color: var(--secondary-bg-color);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#popup button:hover {
+    background-color: var(--secondary-bg-color);
+    /* / Couleur au survol */ 
 }

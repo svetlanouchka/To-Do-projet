@@ -24,7 +24,7 @@ addTaskButton.addEventListener('click', function() {
 function renderTasks() {
     taskList.innerHTML = ''; // On vide la liste avant de la remplir
     tasks.forEach(task => {
-        const taskDiv = document.createElement('div');
+        const taskDiv = document.createElement('li');
         taskDiv.classList.add('task');
         taskDiv.innerHTML = `
             <span>${task.text}</span>
