@@ -27,7 +27,7 @@ function renderTasks() {
         const taskDiv = document.createElement('li');
         taskDiv.classList.add('task');
         taskDiv.innerHTML = `
-            <span>${task.text}</span>
+            <span class="task-text">${task.text}</span>
             <button class="button-modif" onclick="editTask(${task.id})">✏️</button>
             <button class="btn" onclick="deleteTask(${task.id})">🗑️</button>
             
