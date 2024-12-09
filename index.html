@@ -23,15 +23,14 @@
         <h1>To-do List</h1>
     </header>
     <main>
-        <script src="script.js"></script>
         <h2>Votre To-do List</h2>
         <p>Créer votre tâche</p>
 
         <button id="button-create" class="button">+</button>
         <div class="task-creation">
-            <h2>Créez votre tâche ici</h2>
-            <textarea id="task-description" placeholder="Description de la tâche"></textarea>
-            <button id="button-save" class="button">Confirmer</button>
+            <!-- <h2>Créez votre tâche ici</h2> -->
+            <!-- <textarea id="task-description" placeholder="Description de la tâche"></textarea>
+            <button id="button-save" class="button">Confirmer</button> -->
         </div>
         <section class="task-list-filter">
             <article>
@@ -54,8 +53,8 @@
                 <button id="button-validate" class="button">Valider le filtre</button>
                 <button id="button-init" class="button">Ré-initialiser</button>
             </article>
-            <div class="task-list" id="task-list">
-                <ul>
+            <div class="task-list-gen" id="task-list-gen">
+                <ul class="task-list" id="task-list">
                     <li class="task">
                         <span class="task-text">Task Lorem ipsum</span>
                         <button class="button-modif">Modifier</button>
@@ -71,10 +70,11 @@
         <div id="popup">
             <span id="popup-close" class="close-icon">&times;</span> <!-- Icône de fermeture -->
             <h2>Créer une nouvelle tâche</h2>
-            <textarea id="popup-task" placeholder="Description de la tâche"></textarea>
-            <button id="popup-save" class="button">Confirmer</button>
+            <textarea id="task-description" placeholder="Description de la tâche"></textarea>
+            <button id="button-save" class="button">Confirmer</button>
         </div>
     </main>
+    <script src="script.js"></script>
 </body>
 
 
