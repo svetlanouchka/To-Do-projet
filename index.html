@@ -7,56 +7,74 @@
     <title>To Do list</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
 </head>
-<header>
-    <h1>To-do List</h1>
-</header>
+
 
 <body>
+    <header>
+        <img src="images/tache.png" alt="logo">
+        <h1>To-do List</h1>
+    </header>
     <main>
-    <script src="script.js"></script>
-    <h2>Votre To-do List</h2>
-    <p>Créer votre tâche</p>
+        <script src="script.js"></script>
+        <h2>Votre To-do List</h2>
+        <p>Créer votre tâche</p>
 
-    <button id="button-create" class="button">+</button>
-<div class="task-creation">
-    <h2>Créez votre tâche ici</h2>
-    <textarea type="text" id="task-description" placeholder="Description de la tâche" textarea rows="7" cols="50"></textarea>
-    <button id="button-save" class="button">Confirmer</button>
-    </div>
-    <section class="task-list-filter">
-        <article>
-            <legend>Filtrer par :</legend>
-
-            <label for="category">Catégorie :</label>
-            <select id="category">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-
-            <label for="priority">Catégorie :</label>
-            <select id="priority">
-                <option value="1">1 - Urgent</option>
-                <option value="2">2 - Normal</option>
-                <option value="3">3 - Moindre importance</option>
-            </select>
-
-            <button id="button-validate" class="button">Valider le filtre</button>
-            <button id="button-init" class="button">Ré-initialiser</button>
-        </article>
-        <div class="task-list">
-            <article class="task">Task Lorem ipsum</article>
-            <button class="button-modif">Modifier</button>
+        <button id="button-create" class="button">+</button>
+        <div class="task-creation">
+            <h2>Créez votre tâche ici</h2>
+            <textarea id="task-description" placeholder="Description de la tâche"></textarea>
+            <button id="button-save" class="button">Confirmer</button>
         </div>
+        <section class="task-list-filter">
+            <article>
+                <legend>Filtrer par :</legend>
 
-    </section>
-</main>
+                <label for="category">Catégorie :</label>
+                <select id="category">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+
+                <label for="priority">Catégorie :</label>
+                <select id="priority">
+                    <option value="1">1 - Urgent</option>
+                    <option value="2">2 - Normal</option>
+                    <option value="3">3 - Moindre importance</option>
+                </select>
+
+                <button id="button-validate" class="button">Valider le filtre</button>
+                <button id="button-init" class="button">Ré-initialiser</button>
+            </article>
+            <div class="task-list" id="task-list">
+                <ul>
+                    <li class="task">
+                        <span class="task-text">Task Lorem ipsum</span>
+                        <button class="button-modif">Modifier</button>
+                    </li>
+                    <li class="task">
+                        <span class="task-text">Task 2 Lorem ipsum</span>
+                        <button class="button-modif">Modifier</button>
+                </ul>
+            </div>
+        </section>
+        <!-- Popup et Overlay -->
+        <div id="popup-overlay"></div>
+        <div id="popup">
+            <span id="popup-close" class="close-icon">&times;</span> <!-- Icône de fermeture -->
+            <h2>Créer une nouvelle tâche</h2>
+            <textarea id="popup-task" placeholder="Description de la tâche"></textarea>
+            <button id="popup-save" class="button">Confirmer</button>
+        </div>
+    </main>
 </body>
 
 
