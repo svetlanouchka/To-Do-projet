@@ -8,39 +8,56 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Parkinsans:wght@300..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Parkinsans:wght@300..800&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
         rel="stylesheet">
 </head>
-<Header>
+<header>
     <h1>To-do List</h1>
-</Header>
+</header>
 
 <body>
-    <script src="script.js"></script>
-    <h2>Votre To-do List</h2>
-    <p>Créer votre tâche</p>
+    <main>
+        <script src="script.js"></script>
+        <h2>Votre To-do List</h2>
+        <p>Créer votre tâche</p>
 
-    <button id="button-create" class="button">+</button>
+        <button id="button-create" class="button">+</button>
 
-    <section>
-        <div class="filter">Filtrer par
+        <section class="task-list-filter">
+            <textarea type="text" id="txtarea">essai de tache</textarea>
+            <article>
+                <legend>Filtrer par :</legend>
 
 
-        </div>
 
-        <div class="task-list">
-            <article>Task</article>
-            <button>Modifier</button>
-        </div>
+                <label for="category">Catégorie :</label>
+                <select id="category">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
 
-    </section>
+                <label for="priority">Catégorie :</label>
+                <select id="priority">
+                    <option value="1">1 - Urgent</option>
+                    <option value="2">2 - Normal</option>
+                    <option value="3">3 - Moindre importance</option>
+                </select>
 
+                <button id="button-validate" class="button">Valider le filtre</button>
+                <button id="button-init" class="button">Ré-initialiser</button>
+            </article>
+            <div class="task-list">
+                <article class="task">Task Lorem ipsum</article>
+                <button class="button-modif">Modifier</button>
+            </div>
+
+        </section>
+    </main>
 </body>
 
 
