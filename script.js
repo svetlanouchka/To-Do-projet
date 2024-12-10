@@ -55,7 +55,7 @@ addTaskButton.addEventListener('click', function () {
 function renderTasks() {
     taskList.innerHTML = ''; 
     
-    // Сортировка: невыполненные вверху, выполненные внизу
+    // Sort tasks by completion status
     tasks.sort((a, b) => a.completed - b.completed);
     
     tasks.forEach(task => {
@@ -127,7 +127,6 @@ editSaveButton.addEventListener('click', () => {
 
 //Pop up de suppression
 
-
 const deletePopup = document.getElementById('delete-popup');
 const deleteOverlay = document.getElementById('delete-popup-overlay');
 const deleteCloseIcon = document.getElementById('delete-popup-close');
@@ -182,24 +181,24 @@ function toggleTaskCompletion(taskId) {
     if (task) {
         task.completed = !task.completed; 
         
-        // Находим элемент задачи в DOM
+        // Trouver l'element de la tache
         const taskElement = document.querySelector(`.task input[type="checkbox"][onchange="toggleTaskCompletion(${taskId})"]`).closest('.task');
         
-        // Добавляем эффект анимации, когда статус меняется на "выполнено"
+        // Ajout de la classe pour l'animation
         if (task.completed) {
             taskElement.classList.add('task-completed-animation', 'completed');
         } else {
             taskElement.classList.remove('completed');
         }
 
-        // Убираем класс анимации после её завершения
+        // Suprimer la classe après l'animation
         setTimeout(() => taskElement.classList.remove('task-completed-animation'), 500); // Время совпадает с animation: pulse 0.5s
         
-        // Сохраняем и перерисовываем задачи
+        // Sauvegarder les tâches
         setTimeout(() => {
             saveTasks(); 
             renderTasks(); 
-        }, 600); // Задержка должна соответствовать общей длительности transition и animation
+        }, 600); // Le temp de l'animation
     }
 }
 // Charger les tâches au démarrage
