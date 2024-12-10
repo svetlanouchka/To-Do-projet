@@ -192,7 +192,7 @@ function toggleTaskCompletion(taskId) {
         }
 
         // Suprimer la classe après l'animation
-        setTimeout(() => taskElement.classList.remove('task-completed-animation'), 500); // Время совпадает с animation: pulse 0.5s
+        setTimeout(() => taskElement.classList.remove('task-completed-animation'), 500); // Temps de l'animation
         
         // Sauvegarder les tâches
         setTimeout(() => {
