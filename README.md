@@ -47,12 +47,3 @@ L'objectif principal du projet est de **pratiquer HTML, CSS et JavaScript** de m
 1. **Clonez le dépôt** :
    ```bash
    git clone https://github.com/Paul-LOMBARD/To-Do-projet
-
-To-Do-List/
-├── 📄 index.html         # Structure HTML principale
-├── 📄 style.css         # Style et animations CSS
-├── 📄 script.js         # Logique de l'application (CRUD, animations)
-├── 📁 images/          # Images et icônes utilisées
-│   └── tache.png        # Icône principale
-├── 📄 README.md        # Document de présentation (vous êtes ici)
-└── 📄 .gitignore       # Fichier de configuration Git (à ignorer)
