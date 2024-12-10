@@ -29,36 +29,61 @@ document.addEventListener('DOMContentLoaded', () => {
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 const taskInput = document.getElementById('task-description');
+const deadlineInput = document.getElementById('task-deadline');
 const addTaskButton = document.getElementById('button-save');
 const taskList = document.getElementById('task-list');
+
 
 //CREATE (Créer une tâche)
 addTaskButton.addEventListener('click', function () {
     const taskText = taskInput.value.trim();
+    const taskDeadline = deadlineInput.value.trim();
     if (taskText !== '') {
         const task = {
             id: Date.now(), // Identifiant unique
             text: taskText,
+            deadline: taskDeadline,
             completed: false
         };
         tasks.unshift(task);
         saveTasks();
         renderTasks();
         taskInput.value = ''; // On vide le champ input
+        deadlineInput.value = ''; // On vide le champ input
     }
 
     popup.style.display = 'none';
     overlay.style.display = 'none';
 });
 
+console.log(tasks);
+
 // READ (Afficher toutes les tâches)
+
+function formatDate(dateString) {
+    if (!dateString) return 'Aucune'; // Pas de date
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0'); // Jour avec 2 chiffres
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois avec 2 chiffres
+    const year = date.getFullYear(); // Année
+    return `${day}-${month}-${year}`;
+}
+
 function renderTasks() {
     taskList.innerHTML = ''; // On vide la liste avant de la remplir
+
+    tasks.sort((a, b) => {
+        if (!a.deadline) return 1; // Les tâches sans date vont à la fin
+        if (!b.deadline) return -1;
+        return new Date(a.deadline) - new Date(b.deadline); // Comparaison des dates
+    });
+
     tasks.forEach(task => {
         const taskDiv = document.createElement('li');
         taskDiv.classList.add('task');
         taskDiv.innerHTML = `
             <span class="task-text">${task.text}</span>
+            <span class="task-deadline">Échéance :${formatDate(task.deadline) || 'Aucune deadline'}</span>
             <button class="button-modif" onclick="editTask(${task.id})">Modifier</button>
             <button class="button-delete" onclick="deleteTask(${task.id})">🗑️</button>
         `;
@@ -76,6 +101,7 @@ const editPopup = document.getElementById('edit-popup');
 const editOverlay = document.getElementById('edit-popup-overlay');
 const editCloseIcon = document.getElementById('edit-popup-close');
 const editTaskInput = document.getElementById('edit-popup-task');
+const editTaskdate = document.getElementById('edit-popup-deadline');
 const editSaveButton = document.getElementById('edit-popup-save');
 
 let taskBeingEdited = null; // Stocker la tâche actuellement éditée
@@ -84,6 +110,7 @@ let taskBeingEdited = null; // Stocker la tâche actuellement éditée
 function editTask(taskId) {
     taskBeingEdited = tasks.find(task => task.id === taskId); // Trouver la tâche
     editTaskInput.value = taskBeingEdited.text; // Pré-remplir la description
+    editTaskdate.value = taskBeingEdited.deadline; // Pré-remplir la deadline
     editPopup.style.display = 'block';
     editOverlay.style.display = 'block';
 }
@@ -105,6 +132,7 @@ editSaveButton.addEventListener('click', () => {
         const updatedText = editTaskInput.value.trim();
         if (updatedText) {
             taskBeingEdited.text = updatedText; // Met à jour la description
+            taskBeingEdited.deadline = editTaskdate.value.trim(); // Met à jour la deadline
             saveTasks(); // Sauvegarde dans localStorage
             renderTasks(); // Recharge l'affichage
         }
