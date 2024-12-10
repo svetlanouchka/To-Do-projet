@@ -360,3 +360,65 @@ main {
     background-color: var(--secondary-bg-color);
     /* / Couleur au survol */ 
 }
+
+.completed {
+    text-decoration: line-through; 
+    color: #808080; 
+}
+
+.task-checkbox {
+    margin-right: 10px; 
+    width: 20px; 
+    height: 20px; 
+    cursor: pointer; 
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: var(--main-espace) 0;
+    padding: var(--main-espace);
+    border-radius: 5px;
+    background-color: white;
+    gap: var(--main-espace);
+    transform: translateY(0); 
+    transition: all 0.6s ease;
+    opacity: 1; 
+}
+
+.task.completed {
+    opacity: 0.8; 
+    background-color: #d4edda; 
+    color: #155724; 
+    border: 1px solid #c3e6cb; 
+}
+
+.task-move {
+    transform: translateY(10px); 
+}
+
+.task-leave {
+    opacity: 0; 
+    transform: translateY(-20px); 
+    transition: all 0.4s ease; 
+}
+
+.task-completed-animation {
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        background-color: #d4edda;
+    }
+    50% {
+        transform: scale(1.05);
+        background-color: #c3e6cb;
+    }
+    100% {
+        transform: scale(1);
+        background-color: #d4edda;
+    }
+}

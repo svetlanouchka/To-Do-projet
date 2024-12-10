@@ -53,15 +53,27 @@ addTaskButton.addEventListener('click', function () {
 
 // READ (Afficher toutes les tâches)
 function renderTasks() {
-    taskList.innerHTML = ''; // On vide la liste avant de la remplir
+    taskList.innerHTML = ''; 
+    
+    // Сортировка: невыполненные вверху, выполненные внизу
+    tasks.sort((a, b) => a.completed - b.completed);
+    
     tasks.forEach(task => {
         const taskDiv = document.createElement('li');
         taskDiv.classList.add('task');
+        
+        if (task.completed) taskDiv.classList.add('completed');
+        
         taskDiv.innerHTML = `
+            <input type="checkbox" class="task-checkbox" onchange="toggleTaskCompletion(${task.id})" ${task.completed ? 'checked' : ''}>
             <span class="task-text">${task.text}</span>
             <button class="button-modif" onclick="editTask(${task.id})">Modifier</button>
             <button class="button-delete" onclick="deleteTask(${task.id})">🗑️</button>
         `;
+
+        taskDiv.classList.add('task-move');
+        setTimeout(() => taskDiv.classList.remove('task-move'), 500);
+
         taskList.appendChild(taskDiv);
     });
 }
@@ -165,5 +177,30 @@ function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
+function toggleTaskCompletion(taskId) {
+    const task = tasks.find(task => task.id === taskId);
+    if (task) {
+        task.completed = !task.completed; 
+        
+        // Находим элемент задачи в DOM
+        const taskElement = document.querySelector(`.task input[type="checkbox"][onchange="toggleTaskCompletion(${taskId})"]`).closest('.task');
+        
+        // Добавляем эффект анимации, когда статус меняется на "выполнено"
+        if (task.completed) {
+            taskElement.classList.add('task-completed-animation', 'completed');
+        } else {
+            taskElement.classList.remove('completed');
+        }
+
+        // Убираем класс анимации после её завершения
+        setTimeout(() => taskElement.classList.remove('task-completed-animation'), 500); // Время совпадает с animation: pulse 0.5s
+        
+        // Сохраняем и перерисовываем задачи
+        setTimeout(() => {
+            saveTasks(); 
+            renderTasks(); 
+        }, 600); // Задержка должна соответствовать общей длительности transition и animation
+    }
+}
 // Charger les tâches au démarrage
 renderTasks()
