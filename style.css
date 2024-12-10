@@ -24,6 +24,7 @@
     --main-small-font-size: 0.8rem;
     /* Titre */
     --titre-font-size: 3rem;
+    --secondary-titre-font-size: 1.5rem;
 
     /* Espacement */
     --main-espace: 1rem;
@@ -64,6 +65,10 @@ h2 {
     font-size: var(--titre-font-size);
 }
 
+h3 {
+    font-size: var(--secondary-titre-font-size);
+}
+
 #task-description {
     width: 70%;
     height: 150px;
@@ -78,7 +83,7 @@ main {
     margin-right: auto;
     background-color: var(--main-bg-color);
     border-radius: var(--main-border-radius);
-    box-shadow: var(--main-box-shadow);
+    /* box-shadow: var(--main-box-shadow); */
 }
 
 .task-list-filter {
@@ -89,13 +94,12 @@ main {
 .task {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin: var(--main-espace) 0;
     padding: var(--main-espace);
-    border: 1px solid var(--main-border-color);
-    border-radius: var(--main-border-radius);
+    border-radius: 5px;
     background-color: white;
-    box-shadow: var(--main-box-shadow);
+    gap: var(--main-espace);
 }
 
 .task-list {
@@ -141,8 +145,11 @@ main {
 .button-delete {
     background-color: var(--secondary-bg-color);
     padding: 0.5rem 1rem;
+    font-family: var(--main-font-family);
     font-size: var(--main-small-font-size);
-    border-radius: var(--main-border-radius);
+    border-radius: 20px;
+    border: none;
+    color: var(--main-bg-color)
 }
 
 .button-modif:hover {
@@ -150,11 +157,11 @@ main {
 }
 
 .button-delete {
-    background-color: #FF4C4C;
+    background-color: #e2d7d7;
 }
 
 .button-delete:hover {
-    background-color: #cc3c3c;
+    background-color: #959393;
 }
 
 
@@ -225,6 +232,131 @@ main {
 }
 
 #popup button:hover {
+    background-color: var(--secondary-bg-color);
+    /* / Couleur au survol */ 
+}
+
+/* Pop-up de modification */
+#edit-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#edit-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+#edit-popup textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    /* / Espace entre le textarea et le bouton / */
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+}
+#edit-popup .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+#edit-popup .close-icon:hover {
+    color: red;
+    /* / Change la couleur au survol / */
+}
+
+#edit-popup button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-left: 0%;
+    background-color: var(--secondary-bg-color);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#edit-popup button:hover {
+    background-color: var(--secondary-bg-color);
+    /* / Couleur au survol */ 
+}
+
+/* Pop up de suppression */
+
+#delete-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#delete-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#delete-popup .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+#delete-popup .close-icon:hover {
+    color: red;
+    /* / Change la couleur au survol / */
+}
+
+#delete-popup button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-left: 0%;
+    background-color: var(--secondary-bg-color);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#delete-popup button:hover {
     background-color: var(--secondary-bg-color);
     /* / Couleur au survol */ 
 }

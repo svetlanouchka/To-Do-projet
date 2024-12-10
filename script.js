@@ -1,23 +1,54 @@
+//Pop-up de création
+document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById('popup');
+    const overlay = document.getElementById('popup-overlay');
+    const openPopupButton = document.getElementById('button-create');
+    const closePopupIcon = document.getElementById('popup-close');
+
+    // Ouvrir le popup
+    openPopupButton.addEventListener('click', () => {
+        popup.style.display = 'block';
+        overlay.style.display = 'block';
+    });
+
+    // Fermer le popup via l'icône
+    closePopupIcon.addEventListener('click', () => {
+        popup.style.display = 'none';
+        overlay.style.display = 'none';
+    });
+
+    // Fermer en cliquant sur l'overlay
+    overlay.addEventListener('click', () => {
+        popup.style.display = 'none';
+        overlay.style.display = 'none';
+    });
+});
+
+
 // Tableaux des tâches
-let tasks = JSON.parse(localStorage.getItem('tasks')) || []; 
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 const taskInput = document.getElementById('task-description');
 const addTaskButton = document.getElementById('button-save');
 const taskList = document.getElementById('task-list');
 
 //CREATE (Créer une tâche)
-addTaskButton.addEventListener('click', function() {
+addTaskButton.addEventListener('click', function () {
     const taskText = taskInput.value.trim();
-    if(taskText !== '') {
+    if (taskText !== '') {
         const task = {
             id: Date.now(), // Identifiant unique
             text: taskText,
             completed: false
         };
-        tasks.push(task);
+        tasks.unshift(task);
+        saveTasks();
         renderTasks();
         taskInput.value = ''; // On vide le champ input
     }
+
+    popup.style.display = 'none';
+    overlay.style.display = 'none';
 });
 
 // READ (Afficher toutes les tâches)
@@ -28,83 +59,111 @@ function renderTasks() {
         taskDiv.classList.add('task');
         taskDiv.innerHTML = `
             <span class="task-text">${task.text}</span>
-            <button class="button-modif" onclick="editTask(${task.id})">✏️</button>
-            <button class="btn" onclick="deleteTask(${task.id})">🗑️</button>
-            
+            <button class="button-modif" onclick="editTask(${task.id})">Modifier</button>
+            <button class="button-delete" onclick="deleteTask(${task.id})">🗑️</button>
         `;
         taskList.appendChild(taskDiv);
     });
 }
 
-function deleteTask(taskId) {
-    tasks = tasks.filter(task => task.id !== taskId);
-    saveTasks();
-    renderTasks();
-}
+console.log(tasks);
 
+
+
+//Pop-up de modification
+
+const editPopup = document.getElementById('edit-popup');
+const editOverlay = document.getElementById('edit-popup-overlay');
+const editCloseIcon = document.getElementById('edit-popup-close');
+const editTaskInput = document.getElementById('edit-popup-task');
+const editSaveButton = document.getElementById('edit-popup-save');
+
+let taskBeingEdited = null; // Stocker la tâche actuellement éditée
+
+//Ouvrir le pop-up de modification
 function editTask(taskId) {
-    const taskIndex = tasks.findIndex(task => task.id === taskId);
-    const task = tasks[taskIndex];
-    const newTaskText = prompt('Modifier la tâche:', task.text);
-    if (newTaskText !== null && newTaskText.trim() !== '') {
-        tasks[taskIndex].text = newTaskText.trim();
-        saveTasks();
-        renderTasks();
-    }
+    taskBeingEdited = tasks.find(task => task.id === taskId); // Trouver la tâche
+    editTaskInput.value = taskBeingEdited.text; // Pré-remplir la description
+    editPopup.style.display = 'block';
+    editOverlay.style.display = 'block';
 }
+console.log(taskBeingEdited);
+//Fermer le pop-up de modification
+editCloseIcon.addEventListener('click', () => {
+    editPopup.style.display = 'none';
+    editOverlay.style.display = 'none';
+});
+
+editOverlay.addEventListener('click', () => {
+    editPopup.style.display = 'none';
+    editOverlay.style.display = 'none';
+});
+
+//Sauvegarder la tâche modifiée
+editSaveButton.addEventListener('click', () => {
+    if (taskBeingEdited) {
+        const updatedText = editTaskInput.value.trim();
+        if (updatedText) {
+            taskBeingEdited.text = updatedText; // Met à jour la description
+            saveTasks(); // Sauvegarde dans localStorage
+            renderTasks(); // Recharge l'affichage
+        }
+    }
+    editPopup.style.display = 'none';
+    editOverlay.style.display = 'none';
+});
+
+//Pop up de suppression
+
+
+const deletePopup = document.getElementById('delete-popup');
+const deleteOverlay = document.getElementById('delete-popup-overlay');
+const deleteCloseIcon = document.getElementById('delete-popup-close');
+const deleteSaveButton = document.getElementById('delete-popup-save');
+
+let taskToDelete = null;
+
+function deleteTask(taskId) {
+    taskToDelete = taskId;
+    // tasks = tasks.filter(task => task.id !== taskId);
+    console.log('Tâche à supprimer:', taskToDelete);
+    deletePopup.style.display = 'block';
+    deleteOverlay.style.display = 'block';
+    // saveTasks();
+    // renderTasks();
+}
+//Fermer le pop-up de suppression
+
+deleteCloseIcon.addEventListener('click', () => {
+    deletePopup.style.display = 'none';
+    deleteOverlay.style.display = 'none';
+});
+
+deleteOverlay.addEventListener('click', () => {
+    deletePopup.style.display = 'none';
+    deleteOverlay.style.display = 'none';
+});
+
+//COnfirmer la suppression de la tâche
+
+deleteSaveButton.addEventListener('click', () => {
+    console.log('Confirmer suppression de la tâche:', taskToDelete);
+    if (taskToDelete !== null) {
+        // Filtrer la tâche à supprimer en fonction de son ID
+        tasks = tasks.filter(task => task.id !== taskToDelete);
+        // Sauvegarder les tâches dans localStorage
+        saveTasks();
+        // Re-render les tâches
+        renderTasks();
+        // Masquer le pop-up de confirmation
+        deletePopup.style.display = 'none';
+        deleteOverlay.style.display = 'none';
+    }
+});
+
 function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Charger les tâches au démarrage
 renderTasks()
-
-// Titre de la page
-document.addEventListener('DOMContentLoaded', function() {
-    const listTitle = document.getElementById('list-title');
-    const savedTitle = localStorage.getItem('list-title');
-
-    // Si un titre est sauvegardé, on le charge
-    if (savedTitle) {
-        listTitle.textContent = savedTitle;
-    }
-
-    listTitle.addEventListener('click', function() {
-        const currentTitle = listTitle.textContent.trim();
-        
-        // Crée un champ input
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.value = currentTitle;
-        input.id = 'title-input';
-        input.style.width = `${listTitle.offsetWidth}px`;
-
-        listTitle.replaceWith(input);
-        input.focus();
-
-        // Enregistre sur "Enter"
-        input.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                saveTitle(input);
-            }
-        });
-
-        // Enregistre sur "blur"
-        input.addEventListener('blur', function() {
-            saveTitle(input);
-        });
-    });
-
-    function saveTitle(input) {
-        const newTitle = input.value.trim();
-        
-        const h1 = document.createElement('h1');
-        h1.id = 'list-title';
-        h1.textContent = newTitle || 'To-do List';
-        
-        input.replaceWith(h1);
-
-        // Enregistre dans localStorage
-        localStorage.setItem('list-title', newTitle);
-    }
-});
