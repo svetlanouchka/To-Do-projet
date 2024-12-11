@@ -128,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
             closePopup();
         } else {
             showError("Veuillez remplir tous les champs avant d'ajouter une tâche");
-            // alert("Veuillez remplir tous les champs avant d'ajouter une tâche.");
         }
     });
 
