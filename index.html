@@ -4,61 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do list</title>
+    <link rel="icon" href="todofavicon.ico" type="image/x-icon">
+    <title>To Do List</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400..700&display=swap" rel="stylesheet">
 </head>
-<header>
-    <h1>To-do List</h1>
-</header>
 
 <body>
+    <header>
+        <img src="images/tache.png" alt="logo">
+        <h1>To-do List</h1>
+    </header>
     <main>
-        <script src="script.js"></script>
         <h2>Votre To-do List</h2>
         <p>Créer votre tâche</p>
 
         <button id="button-create" class="button">+</button>
+        <div class="task-creation">
+            <!-- Zone réservée pour le futur contenu -->
+        </div>
 
         <section class="task-list-filter">
-            <textarea type="text" id="txtarea">essai de tache</textarea>
             <article>
                 <legend>Filtrer par :</legend>
 
-
-
                 <label for="category">Catégorie :</label>
                 <select id="category">
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="">-- Choisissez une catégorie --</option>
                 </select>
 
-                <label for="priority">Catégorie :</label>
+                <label for="priority">Priorité :</label>
                 <select id="priority">
-                    <option value="1">1 - Urgent</option>
-                    <option value="2">2 - Normal</option>
-                    <option value="3">3 - Moindre importance</option>
+                    <option value="">-- Choisissez une priorité --</option>
                 </select>
 
                 <button id="button-validate" class="button">Valider le filtre</button>
-                <button id="button-init" class="button">Ré-initialiser</button>
+                <button id="button-init" class="button">Réinitialiser</button>
             </article>
-            <div class="task-list">
-                <article class="task">Task Lorem ipsum</article>
-                <button class="button-modif">Modifier</button>
+            <div class="task-list-gen" id="task-list-gen">
+                <ul class="task-list" id="task-list">
+                    <!-- Liste des tâches générée dynamiquement -->
+                </ul>
             </div>
-
         </section>
-    </main>
-</body>
 
+        <!-- Popup de création -->
+        <div id="popup-overlay"></div>
+        <div id="popup">
+            <span id="popup-close" class="close-icon">&times;</span>
+            <h3>Créer une nouvelle tâche</h3>
+            <textarea id="task-description" placeholder="Description de la tâche"></textarea>
+            <div>
+                <label for="popup-task-category">Catégorie :</label>
+                <select id="popup-task-category"></select>
+                <label for="popup-task-priority">Priorité :</label>
+                <select id="popup-task-priority"></select>
+            </div>
+            <button id="button-save" class="button">Enregistrer</button>
+        </div>
+
+        <!-- Popup de modification -->
+        <div id="edit-popup-overlay"></div>
+        <div id="edit-popup">
+            <span id="edit-popup-close" class="close-icon">&times;</span>
+            <h3>Modifier la tâche</h3>
+            <textarea id="edit-popup-task" placeholder="Description de la tâche"></textarea>
+            <label for="edit-task-category">Catégorie :</label>
+            <select id="edit-task-category"></select>
+            <label for="edit-task-priority">Priorité :</label>
+            <select id="edit-task-priority"></select>
+            <button id="edit-popup-save" class="button">Enregistrer</button>
+        </div>
+
+        <!-- Popup de suppression -->
+        <div id="delete-popup-overlay"></div>
+        <div id="delete-popup">
+            <span id="delete-popup-close" class="close-icon">&times;</span>
+            <h3>Supprimer la tâche</h3>
+            <p>Votre tâche sera définitivement supprimée. Êtes-vous sûr de vouloir continuer ?</p>
+            <button id="delete-popup-save" class="button">Confirmer</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
 
 </html>

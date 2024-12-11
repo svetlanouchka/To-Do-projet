@@ -1,21 +1,32 @@
 :root {
-    --main-bg-color: #e3e3e3;
+    /* Couleurs principales */
+    --main-bg-color: #f7f7f7;
     --main-color: #E06E63;
-    --main-text-color: #202020;
+
+    /* Couleurs secondaires */
+    --secondary-bg-color: #6C8B7A;
     --main-link-color: #007bff;
     --main-link-hover-color: #0056b3;
+
+    /* Couleurs de texte et bordures */
     --main-border-color: #ccc;
-    --main-border-radius: 5px;
-    --main-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --main-text-color: #202020;
+
+    /* Divers */
+    --main-border-radius: 20px;
+    --main-box-shadow: 0 2px 5px rgba(235, 235, 235, 0.486);
     --main-transition: 0.3s;
 
+    /* Typographie */
     --main-font-family: 'Urbanist', sans-serif;
-    --main-font-size: 1rem;
-
-    --secondary-bg-color: #6C8B7A;
     --secondary-font-family: 'Afacad', sans-serif;
-
+    --main-font-size: 1rem;
+    --main-small-font-size: 0.8rem;
+    /* Titre */
     --titre-font-size: 3rem;
+    --secondary-titre-font-size: 1.5rem;
+
+    /* Espacement */
     --main-espace: 1rem;
     --main-padding: calc(var(--main-espace) * 2);
     --main-margin: calc(var(--main-espace) * 2);
@@ -31,6 +42,8 @@ header {
     padding: 0.5rem;
     height: 3.5rem;
     margin: 0;
+    display: flex;
+    justify-content: flex-start;
 }
 
 header>h1 {
@@ -52,15 +65,30 @@ h2 {
     font-size: var(--titre-font-size);
 }
 
-#txtarea {
+h3 {
+    font-size: var(--secondary-titre-font-size);
+}
+
+#task-description {
     width: 70%;
     height: 150px;
     resize: none;
-    /* Empêche le redimensionnement */
 }
 
 main {
     margin: var(--main-margin);
+    padding: var(--main-padding);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--main-bg-color);
+    border-radius: var(--main-border-radius);
+    /* box-shadow: var(--main-box-shadow); */
+}
+
+.category {
+    border-radius: 10px;
+    font-size: 14px;
 }
 
 .task-list-filter {
@@ -68,49 +96,311 @@ main {
     font-weight: 200;
 }
 
-.task-list {
-    margin-top: var(--main-margin);
-    display: flexbox;
-    justify-content: flex-start;
-    width: 70%;
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: var(--main-espace) 0;
+    padding: var(--main-espace);
+    border-radius: 5px;
+    background-color: white;
     gap: var(--main-espace);
-
-
 }
 
-.task {
-    font-weight: 600;
+.task-list {
+    gap: var(--main-espace);
+    margin-top: var(--main-margin);
+    width: 70%;
+}
+
+.task-text {
+    flex: 1;
+    word-wrap: break-word;
+    margin-right: var(--main-espace);
+    font-size: var(--main-font-size);
+    color: var(--main-text-color);
+}
+
+
+.task-creation {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(195, 102, 102);
+    width: 50%;
 }
 
 .button {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem;
+    padding: 0.7rem 1rem;
     border: none;
-    border-radius: 30px;
+    border-radius: var(--main-border-radius);
     background-color: var(--main-color);
     color: white;
     font-family: var(--main-font-family);
     font-size: var(--main-font-size);
     cursor: pointer;
-    transition: var(--main-transition);
+    transition: background-color var(--main-transition);
 }
-
-.button-modif {
-    background-color: var(--secondary-bg-color);
-    padding: 0.5rem 1rem;
-    /*    display: flex; */
-    margin-left: 75%;
-    border: none;
-    border-radius: 30px;
-    color: white;
-    font-family: var(--main-font-family);
-    font-size: var(--main-font-size);
-    cursor: pointer;
-    transition: var(--main-transition);
-}
-
 
 .button:hover {
     background-color: #d9534f;
+}
+
+.button-modif,
+.button-delete {
+    background-color: var(--secondary-bg-color);
+    padding: 0.5rem 1rem;
+    font-family: var(--main-font-family);
+    font-size: var(--main-small-font-size);
+    border-radius: 20px;
+    border: none;
+    color: var(--main-bg-color)
+}
+
+.button-modif:hover {
+    background-color: #5a6e5e;
+}
+
+.button-delete {
+    background-color: #e2d7d7;
+}
+
+.button-delete:hover {
+    background-color: #959393;
+}
+
+
+/* input {
+    padding: 0.5rem;
+    border-radius: var(--main-border-radius);
+    border: 1px solid var(--main-border-color);
+    font-family: var(--main-font-family);
+    font-size: var(--main-font-size);
+    transition: var(--main-transition);
+} */
+
+/* Style de la fenêtre popup*/
+
+#popup {
+    position: relative;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: whitesmoke;
+    padding: 10px;
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.close-icon:hover {
+    color: red;
+    /* / Change la couleur au survol / */
+}
+
+#popup textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+}
+
+#popup label {
+    width: 24%;
+    height: 10px;
+    margin-top: 5%;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 14px;
+}
+
+#popup select {
+    width: 35%;
+    height: 25px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#popup button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-left: 0%;
+    background-color: var(--secondary-bg-color);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#popup button:hover {
+    background-color: var(--secondary-bg-color);
+    /* / Couleur au survol */
+}
+
+/* Pop-up de modification */
+#edit-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#edit-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#edit-popup textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    /* / Espace entre le textarea et le bouton / */
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+}
+
+#edit-popup label {
+    width: 24%;
+    height: 10px;
+    margin-top: 5%;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 14px;
+}
+
+#edit-popup select {
+    width: 35%;
+    height: 25px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#edit-popup .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+#edit-popup .close-icon:hover {
+    color: red;
+    /* / Change la couleur au survol / */
+}
+
+#edit-popup button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-left: 0%;
+    background-color: var(--secondary-bg-color);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#edit-popup button:hover {
+    background-color: var(--secondary-bg-color);
+    /* / Couleur au survol */
+}
+
+/* Pop up de suppression */
+
+#delete-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#delete-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#delete-popup .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+#delete-popup .close-icon:hover {
+    color: red;
+    /* / Change la couleur au survol / */
+}
+
+#delete-popup button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-left: 0%;
+    background-color: var(--secondary-bg-color);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#delete-popup button:hover {
+    background-color: var(--secondary-bg-color);
+    /* / Couleur au survol */
 }
