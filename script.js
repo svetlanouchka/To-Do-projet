@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterButton = document.getElementById("button-validate");
     const resetButton = document.getElementById("button-init");
 
+    // Variables pour le pop-up d'erreur
+    const errorPopup = document.getElementById('error-popup');
+    const errorPopupOverlay = document.getElementById('error-popup-overlay');
+    const errorPopupClose = document.getElementById('error-popup-close');
+    const errorMessage = document.getElementById('error-message');
+
     // Initialisation des données
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -58,6 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
         overlay.style.display = "none";
     };
 
+    // Écouteurs pour fermer le pop-up d'erreur
+    errorPopupClose.addEventListener('click', hideError);
+    errorPopupOverlay.addEventListener('click', hideError);
+
     closePopupButton.addEventListener("click", closePopup);
     overlay.addEventListener("click", closePopup);
 
@@ -83,6 +93,19 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    // Fonction pour afficher le pop-up d'erreur
+    function showError(message) {
+        errorMessage.textContent = message;
+        errorPopup.style.display = 'block';
+        errorPopupOverlay.style.display = 'block';
+    }
+
+    // Fonction pour masquer le pop-up d'erreur
+    function hideError() {
+        errorPopup.style.display = 'none';
+        errorPopupOverlay.style.display = 'none';
+    }
+
     // Ajouter une tâche
     addTaskButton.addEventListener("click", () => {
         const description = taskDescription.value.trim();
@@ -104,7 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
             taskPriority.value = "";
             closePopup();
         } else {
-            alert("Veuillez remplir tous les champs avant d'ajouter une tâche.");
+            showError("Veuillez remplir tous les champs avant d'ajouter une tâche");
+            // alert("Veuillez remplir tous les champs avant d'ajouter une tâche.");
         }
     });
 
@@ -157,6 +181,8 @@ document.addEventListener("DOMContentLoaded", () => {
         saveTasks();
         renderTasks();
     };
+
+
 
     // Filtrer les tâches
     const filterTasks = () => {
