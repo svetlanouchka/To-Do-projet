@@ -109,6 +109,7 @@ const editPopup = document.getElementById('edit-popup');
 const editOverlay = document.getElementById('edit-popup-overlay');
 const editCloseIcon = document.getElementById('edit-popup-close');
 const editTaskInput = document.getElementById('edit-popup-task');
+const editTaskdate = document.getElementById('edit-popup-deadline');
 const editSaveButton = document.getElementById('edit-popup-save');
 
 let taskBeingEdited = null; // Stocker la tâche actuellement éditée
@@ -117,6 +118,7 @@ let taskBeingEdited = null; // Stocker la tâche actuellement éditée
 function editTask(taskId) {
     taskBeingEdited = tasks.find(task => task.id === taskId); // Trouver la tâche
     editTaskInput.value = taskBeingEdited.text; // Pré-remplir la description
+    editTaskdate.value = taskBeingEdited.deadline; // Pré-remplir la deadline
     editPopup.style.display = 'block';
     editOverlay.style.display = 'block';
 }
@@ -138,6 +140,7 @@ editSaveButton.addEventListener('click', () => {
         const updatedText = editTaskInput.value.trim();
         if (updatedText) {
             taskBeingEdited.text = updatedText; // Met à jour la description
+            taskBeingEdited.deadline = editTaskdate.value.trim(); // Met à jour la deadline
             saveTasks(); // Sauvegarde dans localStorage
             renderTasks(); // Recharge l'affichage
         }
