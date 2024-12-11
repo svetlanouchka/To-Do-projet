@@ -29,34 +29,54 @@ document.addEventListener('DOMContentLoaded', () => {
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 const taskInput = document.getElementById('task-description');
+const deadlineInput = document.getElementById('task-deadline');
 const addTaskButton = document.getElementById('button-save');
 const taskList = document.getElementById('task-list');
 
 //CREATE (Créer une tâche)
 addTaskButton.addEventListener('click', function () {
     const taskText = taskInput.value.trim();
+    const taskDeadline = deadlineInput.value.trim();
     if (taskText !== '') {
         const task = {
             id: Date.now(), // Identifiant unique
             text: taskText,
+            deadline: taskDeadline,
             completed: false
         };
         tasks.unshift(task);
         saveTasks();
         renderTasks();
         taskInput.value = ''; // On vide le champ input
+        deadlineInput.value = ''; 
     }
 
     popup.style.display = 'none';
     overlay.style.display = 'none';
 });
 
+function formatDate(dateString) {
+    if (!dateString) return 'Aucune'; // Pas de date
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0'); // Jour avec 2 chiffres
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois avec 2 chiffres
+    const year = date.getFullYear(); // Année
+    return `${day}-${month}-${year}`;
+}
+
 // READ (Afficher toutes les tâches)
 function renderTasks() {
     taskList.innerHTML = ''; 
     
     // Sort tasks by completion status
-    tasks.sort((a, b) => a.completed - b.completed);
+    tasks.sort((a, b) => {
+        if (a.completed !== b.completed) {
+            return a.completed - b.completed; // Les tâches complétées vont à la fin
+        }
+        if (!a.deadline) return 1; // Les tâches sans date vont à la fin
+        if (!b.deadline) return -1;
+        return new Date(a.deadline) - new Date(b.deadline); // Comparaison des dates
+    });
     
     tasks.forEach(task => {
         const taskDiv = document.createElement('li');
@@ -67,6 +87,7 @@ function renderTasks() {
         taskDiv.innerHTML = `
             <input type="checkbox" class="task-checkbox" onchange="toggleTaskCompletion(${task.id})" ${task.completed ? 'checked' : ''}>
             <span class="task-text">${task.text}</span>
+            <span class="task-deadline">Échéance :${formatDate(task.deadline) || 'Aucune deadline'}</span>
             <button class="button-modif" onclick="editTask(${task.id})">Modifier</button>
             <button class="button-delete" onclick="deleteTask(${task.id})">🗑️</button>
         `;

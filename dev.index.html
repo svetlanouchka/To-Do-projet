@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="todofavicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/todofavicon.ico" type="image/x-icon">
     <title>To Do list</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,15 +18,15 @@
         rel="stylesheet">
 </head>
 
-
 <body>
     <header>
         <img src="images/tache.png" alt="logo">
         <h1>To-do List</h1>
     </header>
     <main>
-        <h2>Votre To-do List</h2>
-        <p>Créer votre tâche</p>
+        <h1 id="list-title">Votre To-do List</h1>
+        <button id="edit-title" class="button-edit">✏️</button>
+    <p>Créer votre tâche</p>
 
         <button id="button-create" class="button">+</button>
         <div class="task-creation">
@@ -72,9 +73,6 @@
             <span id="popup-close" class="close-icon">&times;</span> <!-- Icône de fermeture -->
             <h3>Créer une nouvelle tâche</h3>
             <textarea id="task-description" placeholder="Description de la tâche"></textarea>
-            <label for="deadline">Date d'échéance de la tâche</label>
-            <input type="date" id="task-deadline" name="deadline">
-            <div class="espace"></div>
             <button id="button-save" class="button">Confirmer</button>
         </div>
 
@@ -84,9 +82,6 @@
             <span id="edit-popup-close" class="close-icon">&times;</span>
             <h3>Modifier la tâche</h3>
             <textarea id="edit-popup-task" placeholder="Description de la tâche"></textarea>
-            <label for="edit-popup-deadline">Modifier la date d'échéance de la tâche</label>
-            <input type="date" id="edit-popup-deadline" name="deadline">
-            <div class="espace"></div>
             <button id="edit-popup-save" class="button">Confirmer</button>
         </div>
 
@@ -104,6 +99,4 @@
     </main>
     <script src="script.js"></script>
 </body>
-
-
 </html>
