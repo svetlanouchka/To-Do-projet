@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="todofavicon.ico" type="image/x-icon">
-    <title>To Do list</title>
+    <title>Taskify : simplifie ta vie.</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
 <body>
     <header>
         <img src="images/tache.png" alt="logo">
-        <h1>To-do List</h1>
+        <h1>Taskify</h1>
     </header>
     <main>
         <h2>Votre To-do List</h2>
@@ -37,15 +37,16 @@
             <article>
                 <legend>Filtrer par :</legend>
 
-                <label for="category">Catégorie :</label>
+                <!-- <label for="category">Catégorie :</label>
                 <select id="category">
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
                     <option value="3">Option 3</option>
-                </select>
+                </select> -->
 
-                <label for="priority">Catégorie :</label>
-                <select id="priority">
+                <label for="priority">Priorité :</label>
+                <select id="priority-filter">
+                    <option value="all">Tous</option>
                     <option value="1">1 - Urgent</option>
                     <option value="2">2 - Normal</option>
                     <option value="3">3 - Moindre importance</option>
@@ -75,6 +76,12 @@
             <label for="deadline">Date d'échéance de la tâche</label>
             <input type="date" id="task-deadline" name="deadline">
             <div class="espace"></div>
+            <label for="task-priority">Priorité :</label>
+            <select id="task-priority">
+            <option value="1">1 - Urgent</option>
+            <option value="2">2 - Normal</option>
+            <option value="3">3 - Moindre importance</option>
+            </select>
             <button id="button-save" class="button">Confirmer</button>
         </div>
 

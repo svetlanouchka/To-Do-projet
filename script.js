@@ -37,18 +37,21 @@ const taskList = document.getElementById('task-list');
 addTaskButton.addEventListener('click', function () {
     const taskText = taskInput.value.trim();
     const taskDeadline = deadlineInput.value.trim();
+    const taskPriority = document.getElementById('task-priority').value;
     if (taskText !== '') {
         const task = {
             id: Date.now(), // Identifiant unique
             text: taskText,
             deadline: taskDeadline,
+            priority: taskPriority,
             completed: false
         };
         tasks.unshift(task);
         saveTasks();
         renderTasks();
         taskInput.value = ''; // On vide le champ input
-        deadlineInput.value = ''; 
+        deadlineInput.value = '';
+        document.getElementById('task-priority').value = '2'; 
     }
 
     popup.style.display = 'none';
@@ -67,9 +70,16 @@ function formatDate(dateString) {
 // READ (Afficher toutes les tâches)
 function renderTasks() {
     taskList.innerHTML = ''; 
+
+    // Filtrer les tâches en fonction de la priorité
+    const priorityFilter = document.getElementById('priority-filter').value;
+    const filteredTasks = tasks.filter(task => {
+        if (priorityFilter === 'all') return true; // Toutes les tâches
+        return task.priority === priorityFilter;
+    })
     
     // Sort tasks by completion status
-    tasks.sort((a, b) => {
+    filteredTasks.sort((a, b) => {
         if (a.completed !== b.completed) {
             return a.completed - b.completed; // Les tâches complétées vont à la fin
         }
@@ -78,7 +88,7 @@ function renderTasks() {
         return new Date(a.deadline) - new Date(b.deadline); // Comparaison des dates
     });
     
-    tasks.forEach(task => {
+    filteredTasks.forEach(task => {
         const taskDiv = document.createElement('li');
         taskDiv.classList.add('task');
         
@@ -98,6 +108,9 @@ function renderTasks() {
         taskList.appendChild(taskDiv);
     });
 }
+
+// Filtrer les tâches par priorité lorsque l'on clique sur le bouton de validation
+document.getElementById('priority-filter').addEventListener('click', renderTasks);
 
 console.log(tasks);
 
