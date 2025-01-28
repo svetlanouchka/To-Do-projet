@@ -1,6 +1,6 @@
-# To-Do-projet
+# Taskify
 
-# 🗂️ To-Do List — Application de gestion des tâches
+# 🗂️ Taskify — Application de gestion des tâches
 
 Une application simple et interactive de gestion des tâches (To-Do List) avec animations, filtres et fonctionnalités de modification, suppression et classement des tâches.
 
