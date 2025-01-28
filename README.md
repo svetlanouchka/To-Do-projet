@@ -46,4 +46,4 @@ L'objectif principal du projet est de **pratiquer HTML, CSS et JavaScript** de m
 ### 📥 **Installation locale**
 1. **Clonez le dépôt** :
    ```bash
-   git clone https://github.com/Paul-LOMBARD/To-Do-projet
+   git@github.com:svetlanouchka/To-Do-projet.git
